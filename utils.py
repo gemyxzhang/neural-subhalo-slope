@@ -295,7 +295,7 @@ def make_image(z_lens=0.2,
         mass_sheet = np.mean(kappa_subhalos)
         subhalo_lens_list = subhalo_lens_list + ['CONVERGENCE']
         
-        kwargs_subhalo_lens_list = kwargs_subhalo_lens_list + [{'kappa_ext': -mass_sheet}]   # needs to be 'kappa' in updated lenstronomy 
+        kwargs_subhalo_lens_list = kwargs_subhalo_lens_list + [{'kappa': -mass_sheet}]  
         
     
     kwargs_model = {'lens_model_list': lens_model_list + subhalo_lens_list,  # list of lens models to be used

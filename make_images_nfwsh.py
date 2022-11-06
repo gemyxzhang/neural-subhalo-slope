@@ -64,11 +64,11 @@ if (args.resume):
     
 else:
     if (args.nms and args.noise): 
-        PATH_save = PATH + 'deltapix{}_numpix{}_{}sh_{}ml_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_zl{}zs{}_nms_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.subhalo_type, args.ml_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.z_lens, args.z_source)
+        PATH_save = PATH + 'deltapix{}_numpix{}_{}sh_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_zl{}zs{}_nms_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.subhalo_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.z_lens, args.z_source)
     elif (args.nms):
-        PATH_save = PATH + 'deltapix{}_numpix{}_{}sh_{}ml_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_zl{}zs{}_nms_varycosmos'.format(args.deltapix, args.numpix, args.subhalo_type, args.ml_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.z_lens, args.z_source)
+        PATH_save = PATH + 'deltapix{}_numpix{}_{}sh_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_zl{}zs{}_nms_varycosmos'.format(args.deltapix, args.numpix, args.subhalo_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.z_lens, args.z_source)
     elif (args.noise):
-        PATH_save = PATH + 'deltapix{}_numpix{}_{}sh_{}ml_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_zl{}zs{}_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.subhalo_type, args.ml_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.z_lens, args.z_source)
+        PATH_save = PATH + 'deltapix{}_numpix{}_{}sh_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_zl{}zs{}_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.subhalo_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.z_lens, args.z_source)
         
     if (args.shear):
         PATH_save = PATH_save + '_shear{}/'.format(args.shear)
@@ -169,7 +169,7 @@ for i in range(n_total):
     else: 
         cc = COSMOSIncludeCatalog('planck18', source_parameters)
         
-    source_model_list, kwargs_source = cc.draw_source()
+    source_model_list, kwargs_source,_ = cc.draw_source()
     
     # determine some parameters of subhalos first 
     nsub = np.random.randint(args.minnsub, args.maxnsub)

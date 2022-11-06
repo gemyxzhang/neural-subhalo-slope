@@ -75,11 +75,11 @@ if (args.resume):
         gammas = np.random.uniform(args.ming, args.maxg, size=n_total)
 else: 
     if (args.nms and args.noise): 
-        PATH_save = PATH + 'deltapix{}_numpix{}_eplsh_{}mlnorm2_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_g{}to{}_gammaw{}_zl{}zs{}_nms_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.ml_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.ming, args.maxg, args.gamma_widthperim, args.z_lens, args.z_source)
+        PATH_save = PATH + 'deltapix{}_numpix{}_eplsh_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_g{}to{}_gammaw{}_zl{}zs{}_nms_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.ming, args.maxg, args.gamma_widthperim, args.z_lens, args.z_source)
     elif (args.nms):
-        PATH_save = PATH + 'deltapix{}_numpix{}_eplsh_{}mlnorm2_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_g{}to{}_gammaw{}_zl{}zs{}_nms_varycosmos'.format(args.deltapix, args.numpix, args.ml_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.ming, args.maxg, args.gamma_widthperim, args.z_lens, args.z_source)
+        PATH_save = PATH + 'deltapix{}_numpix{}_eplsh_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_g{}to{}_gammaw{}_zl{}zs{}_nms_varycosmos'.format(args.deltapix, args.numpix, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.ming, args.maxg, args.gamma_widthperim, args.z_lens, args.z_source)
     elif (args.noise):
-        PATH_save = PATH + 'deltapix{}_numpix{}_eplsh_{}mlnorm2_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_g{}to{}_gammaw{}_zl{}zs{}_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.ml_type, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.ming, args.maxg, args.gamma_widthperim, args.z_lens, args.z_source)
+        PATH_save = PATH + 'deltapix{}_numpix{}_eplsh_logm{}to{}_beta{}_nsub{}to{}_{}maxpix_g{}to{}_gammaw{}_zl{}zs{}_noise10orb_varycosmos'.format(args.deltapix, args.numpix, args.minlogmass, args.maxlogmass, args.beta, args.minnsub, args.maxnsub, args.pixscale, args.ming, args.maxg, args.gamma_widthperim, args.z_lens, args.z_source)
         
     if (args.shear):
         PATH_save = PATH_save + '_shear{}/'.format(args.shear)
@@ -187,7 +187,7 @@ for i in range(n_total):
     else: 
         cc = COSMOSIncludeCatalog('planck18', source_parameters)
         
-    source_model_list, kwargs_source = cc.draw_source()
+    source_model_list, kwargs_source,_ = cc.draw_source()
     
     # determine some parameters of subhalos first 
     nsub = np.random.randint(args.minnsub, args.maxnsub)

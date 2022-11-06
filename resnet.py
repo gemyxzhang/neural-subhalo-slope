@@ -4,12 +4,38 @@ import torch
 from torch.autograd import grad
 import logging
 from torch import ones, eye
-from sbi import utils as utils
+
 
 logger = logging.getLogger(__name__)
 
 
 import torch.nn as nn
+
+
+def is_positive_int(x):
+    return isinstance(x, int) and x > 0
+
+def merge_leading_dims(x, num_dims):
+    """Reshapes the tensor `x` such that the first `num_dims` dimensions are merged to
+    one."""
+    if not is_positive_int(num_dims):
+        raise TypeError("Number of leading dims must be a positive integer.")
+    if num_dims > x.dim():
+        raise ValueError(
+            "Number of leading dims can't be greater than total number of dims."
+        )
+    new_shape = torch.Size([-1]) + x.shape[num_dims:]
+    return torch.reshape(x, new_shape)
+
+
+def repeat_rows(x, num_reps):
+    """Each row of tensor `x` is repeated `num_reps` times along leading dimension."""
+    if not is_positive_int(num_reps):
+        raise TypeError("Number of repetitions must be a positive integer.")
+    shape = x.shape
+    x = x.unsqueeze(1)
+    x = x.expand(shape[0], num_reps, *shape[1:])
+    return merge_leading_dims(x, num_dims=2)
 
 
 def conv3x3(in_planes, out_planes, stride=1):
@@ -284,7 +310,7 @@ class ResNetRatioEstimator(nn.Module):
             x, x_aux = self._classifier_data(x_aux, x) 
         
         # Preprocessing
-        # h = self._preprocess(x)
+        h = self._preprocess(x)
 
         # ResNet
         h = self.conv1(h)
@@ -363,7 +389,7 @@ class ResNetRatioEstimator(nn.Module):
         of dataset is doubled in the process. 
         """
         batch_size = theta.shape[0]
-        repeated_x = utils.repeat_rows(x, 2)
+        repeated_x = repeat_rows(x, 2)
 
         probs = ones(batch_size, batch_size) * (1 - eye(batch_size)) / (batch_size - 1)
 
