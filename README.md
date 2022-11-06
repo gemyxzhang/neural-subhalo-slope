@@ -2,7 +2,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2208.13796%20-green.svg)](https://arxiv.org/abs/2208.13796)
 
 ## Software dependencies
-The code uses standard `numpy` and `scipy` packages. Part of the forward model requires installation of the [sbi](https://github.com/mackelab/sbi) package. We use [paltas](https://github.com/swagnercarena/paltas) and [lenstronomy](https://github.com/lenstronomy/lenstronomy) for data generation. These can be installed as follows: 
+The code uses standard `astropy`, `numpy` and `scipy` packages. We use [paltas](https://github.com/swagnercarena/paltas) and [lenstronomy](https://github.com/lenstronomy/lenstronomy) for data generation. These can be installed as follows: 
 
 ```
 pip install paltas lenstronomy 
